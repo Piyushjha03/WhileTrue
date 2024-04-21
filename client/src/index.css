@@ -1,0 +1,111 @@
+@tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  @layer base {
+    :root{
+      --bg-color: #f2f2f2;
+      --bg-color-dark: #141414;
+      --ai: #0d0c27;
+      --wt-bg-emphasis: #e5e7eb;
+      --wt-bg: #fff;
+      --wt-bg-subtle: #f3f4f6;
+      --wt-bg-muted: #f9fafb;
+      --wt-bg-inverted: #111827;
+      --wt-bg-info: #dee9fc;
+      --wt-bg-success: #e2fbe8;
+      --wt-bg-attention: #fceed8;
+      --wt-bg-error: #f9e3e2;
+      --wt-border-emphasis: #9ca3af;
+      --wt-border: #d1d5db;
+      --wt-border-subtle: #e5e7eb;
+      --wt-border-muted: #f3f4f6;
+      --wt-text-emphasis: #111827;
+      --wt-text: #374151;
+      --wt-text-subtle: #6b7280;
+      --wt-text-muted: #9ca3af;
+      --wt-text-inverted: #fff;
+      --wt-text-info: #253985;
+      --wt-text-success: #285231;
+      --wt-text-attention: #73321b;
+      --wt-text-error: #752522;
+      --wt-brand: #111827;
+      --wt-brand-emphasis: #101010;
+      --wt-brand-text: #fff;
+    }
+    
+    :root {
+
+       /* custom css */
+       --black-400:"rgb(31 36 40/var(--tw-bg-opacity));--tw-bg-opacity:1;"
+
+      --background: 0 0% 100%;
+      --foreground: 240 10% 3.9%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 240 10% 3.9%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 240 10% 3.9%;
+
+      --primary: 240 5.9% 10%;
+      --primary-foreground: 0 0% 98%;
+
+      --secondary: 240 4.8% 95.9%;
+      --secondary-foreground: 240 5.9% 10%;
+
+      --muted: 240 4.8% 95.9%;
+      --muted-foreground: 240 3.8% 46.1%;
+
+      --accent: 240 4.8% 95.9%;
+      --accent-foreground: 240 5.9% 10%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 0% 98%;
+
+      --border: 240 5.9% 90%;
+      --input: 240 5.9% 90%;
+      --ring: 240 10% 3.9%;
+
+      --radius: 0.5rem;
+    }
+
+    .dark {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+
+      --card: 240 10% 3.9%;
+      --card-foreground: 0 0% 98%;
+
+      --popover: 240 10% 3.9%;
+      --popover-foreground: 0 0% 98%;
+
+      --primary: 0 0% 98%;
+      --primary-foreground: 240 5.9% 10%;
+
+      --secondary: 240 3.7% 15.9%;
+      --secondary-foreground: 0 0% 98%;
+
+      --muted: 240 3.7% 15.9%;
+      --muted-foreground: 240 5% 64.9%;
+
+      --accent: 240 3.7% 15.9%;
+      --accent-foreground: 0 0% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 0% 98%;
+
+      --border: 240 3.7% 15.9%;
+      --input: 240 3.7% 15.9%;
+      --ring: 240 4.9% 83.9%;
+    }
+  }
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
