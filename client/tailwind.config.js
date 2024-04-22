@@ -1,3 +1,7 @@
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -18,7 +22,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        primary: ["Matter", "sans-serif"],
+        primary: ["Geist mono", "sans-serif"],
+        cal: ["cal sans", "Matter", "sans-serif"],
+        hand: ['"Virgil 3 YOFF"', "cal sans", "Matter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -76,5 +82,15 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [import("tailwindcss-animate"), addVariablesForColors],
 };
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
