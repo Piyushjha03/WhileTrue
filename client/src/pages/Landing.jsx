@@ -84,9 +84,9 @@ export function HeroScrollDemo() {
           height="100%"
           src="https://www.youtube.com/embed/39MArMcq5Oc?si=sNAOPjDZ-54b1ST_"
           title="YouTube video player"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
+          referrerPolicy="strict-origin-when-cross-origin"
           allowfullscreen
         ></iframe>
       </ContainerScroll>
@@ -94,7 +94,6 @@ export function HeroScrollDemo() {
   );
 }
 
-import { cn } from "@/utils/cn";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import {
   IconArrowWaveRightUp,
@@ -295,7 +294,7 @@ import { PinContainer } from "@/components/ui/course-link";
 export function AnimatedPinDemo() {
   return (
     <div className="h-[30rem] flex items-center justify-center ">
-      <PinContainer title="/wt.courses/next.js" href="https://whiletrue.com">
+      <PinContainer title="/wt.courses/next.js" href="/courseinfo">
         <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
           <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
             Next.js : full stack
@@ -303,7 +302,11 @@ export function AnimatedPinDemo() {
           <div className="text-base !m-0 !p-0 font-normal">
             <span className="text-slate-500 ">$399</span>
           </div>
-          <div className="flex flex-1 w-full rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500" />
+          <img
+            src="https://media.licdn.com/dms/image/D4D12AQHSAGB9SeqS0w/article-cover_image-shrink_720_1280/0/1687040213111?e=2147483647&v=beta&t=a2mca5HZCKdpLXUpqyQThElHrI6j-nYSog4D-DcGyRo"
+            alt="nextjs"
+            className="flex flex-1 w-full rounded-lg mt-4 object-cover "
+          />
         </div>
       </PinContainer>
     </div>
@@ -314,7 +317,6 @@ const Landing = () => {
   return (
     <>
       <div className="landing wrapper w-screen h-full bg-black">
-        <img src="/favicon.png" alt="logo" className="h-12 w-12" />
         <div className="landing-content">
           <SparklesPreview />
           <HeroScrollDemo />
@@ -385,7 +387,7 @@ export default Landing;
                       developer
                     </span>
                   </pre>
-                </div>
+                </div>z
               </div>
             </div>
             {/* <div className="flex">
