@@ -24,11 +24,11 @@ const router = createBrowserRouter([
         path: "course/:id",
         element: <CourseInfo />,
       },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
     ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
   },
 ]);
 
