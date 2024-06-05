@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Make a Payment</h1>
+    <button id="payButton">Pay Now</button>
+
+    <script>
+        const createOrder = async () => {
+            const response = await fetch('/api/v1/payments/createOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount: 500, currency: 'INR' }) 
+            });
+            const order = await response.json();
+            return order;
+        };
+
+        const capturePayment = async (payment_id, amount) => {
+            const response = await fetch('/api/v1/payments/capturePayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ payment_id, amount })
+            });
+            const payment = await response.json();
+            return payment;
+        };
+
+        document.getElementById('payButton').addEventListener('click', async () => {
+            const amount = 500; // Example amount in INR
+            const order = await createOrder();
+
+            const options = {
+                key: '{{process.env.RAZORPAY_API_ID}}', // Razorpay API key
+                amount: amount * 100, // Amount in paise
+                currency: 'INR',
+                name: 'Your Company Name',
+                description: 'Test Transaction',
+                order_id: order.id,
+                handler: async function (response) {
+                    const { razorpay_payment_id } = response;
+                    const capturedPayment = await capturePayment(razorpay_payment_id, amount);
+                    console.log('Payment Captured:', capturedPayment);
+                },
+                prefill: {
+                    name: 'Your Name',
+                    email: 'youremail@example.com',
+                    contact: '9999999999'
+                },
+                theme: {
+                    color: '#F37254'
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        });
+    </script>
+</body>
+</html>
