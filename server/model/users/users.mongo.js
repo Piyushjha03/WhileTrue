@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
   },
+  courses: {
+    type: Array,
+    default: [],
+  },
 });
 
 const Users = mongoose.model("Users", userSchema);

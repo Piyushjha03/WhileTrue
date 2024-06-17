@@ -4,10 +4,16 @@ import { Webhook } from "svix";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import Users from "./model/users/users.mongo.js";
+import paymentRouter from "./router/payments.router.js";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 const uri = process.env.MONGODB_URI;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // mongodb connection
 mongoose
@@ -115,6 +121,9 @@ app.post(
     }
   }
 );
+
+// razorpay router
+app.use("/payment", paymentRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

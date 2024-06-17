@@ -10,6 +10,9 @@ import CourseInfo from "./pages/CourseInfo";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 
+import { useUser } from "@clerk/clerk-react";
+import { createContext, useContext } from "react";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +39,18 @@ const router = createBrowserRouter([
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
+}
+
+export default function ClerkUser() {
+  const { isSignedIn, user } = useUser();
+
+  const userContext = createContext({
+    userId: user.id,
+  });
+
+  if (isSignedIn) {
+    return user.id;
+  }
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(

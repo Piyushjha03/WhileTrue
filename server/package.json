@@ -12,10 +12,12 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.0",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
+    "razorpay": "^2.9.4",
     "svix": "^1.24.0"
   }
 }
