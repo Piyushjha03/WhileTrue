@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard";
 
 import { useUser } from "@clerk/clerk-react";
 import { createContext, useContext } from "react";
+import AllCourses from "./pages/AllCourses";
+import Watch from "./pages/watch";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "allcourses",
+    element: <AllCourses />,
+  },
+  {
+    path: "watch",
+    element: <Watch />,
   },
 ]);
 

@@ -1,37 +1,16 @@
 import { Link } from "react-router-dom";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  CreditCard,
-  File,
   Home,
-  LineChart,
-  ListFilter,
-  MoreVertical,
-  Package,
-  Package2,
-  PanelLeft,
   Search,
   Settings,
   ShoppingCart,
-  Truck,
-  Users2,
   LibraryBig,
   UserRound,
   Menu,
-  Settings2,
+  MonitorPlay,
+  LibraryBigIcon,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -41,33 +20,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { Input } from "@/components/ui/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from "@/components/ui/pagination";
+
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
+
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import {
   Tooltip,
   TooltipContent,
@@ -75,6 +34,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { SignedIn, UserButton } from "@clerk/clerk-react";
+import Example from "@/components/pieChart";
+import LineChart from "@/components/linechart";
 
 export function DashboardUI() {
   return (
@@ -231,6 +192,7 @@ export function DashboardUI() {
               <UserButton />
             </SignedIn>
           </header>
+
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
             {/* <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
               <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
@@ -674,6 +636,26 @@ export function DashboardUI() {
 
             <Card>
               <CardHeader className="pb-2">
+                <CardDescription>Go to</CardDescription>
+                <CardTitle className="text-4xl underline cursor-pointer flex justify-between items-center">
+                  All Courses
+                  <LibraryBigIcon />
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <div className="text-xs text-muted-foreground ">
+                  Or Continue From Where You Left Off
+                </div>
+              </CardContent>
+              <CardFooter>
+                <MonitorPlay />
+                <div className="text-xs text-muted-foreground underline cursor-pointer ml-2">
+                  <strong>Next.js</strong> .L32
+                </div>
+              </CardFooter>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
                 <CardDescription>This Week</CardDescription>
                 <CardTitle className="text-4xl">12 hours</CardTitle>
               </CardHeader>
@@ -701,6 +683,10 @@ export function DashboardUI() {
               </CardFooter>
             </Card>
           </main>
+          <div className="charts w-full h-64">
+            <Example />
+            <LineChart />
+          </div>
         </div>
       </div>
     </TooltipProvider>
