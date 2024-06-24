@@ -290,21 +290,23 @@ export const users = [
 ];
 
 import { PinContainer } from "@/components/ui/course-link";
+import { useEffect, useState } from "react";
+import { getAllCourses } from "@/api";
 
-export function AnimatedPinDemo() {
+export function AnimatedPinDemo(props) {
   return (
     <div className="h-[30rem] flex items-center justify-center ">
-      <PinContainer title="/wt.courses/next.js" href="/courseinfo">
+      <PinContainer title="See details" course={props.course}>
         <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
           <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
-            Next.js : full stack
+            {props.course.title}
           </h3>
           <div className="text-base !m-0 !p-0 font-normal">
-            <span className="text-slate-500 ">$399</span>
+            <span className="text-slate-500 ">₹{props.course.price}</span>
           </div>
           <img
-            src="https://media.licdn.com/dms/image/D4D12AQHSAGB9SeqS0w/article-cover_image-shrink_720_1280/0/1687040213111?e=2147483647&v=beta&t=a2mca5HZCKdpLXUpqyQThElHrI6j-nYSog4D-DcGyRo"
-            alt="nextjs"
+            src={props.course.coverImage}
+            alt={props.course.title}
             className="flex flex-1 w-full rounded-lg mt-4 object-cover "
           />
         </div>
@@ -314,6 +316,14 @@ export function AnimatedPinDemo() {
 }
 
 const Landing = () => {
+  const [allCourses, setAllCourses] = useState([]);
+  useEffect(() => {
+    async function fetchapi() {
+      const res = await getAllCourses();
+      setAllCourses(res);
+    }
+    fetchapi();
+  }, []);
   return (
     <>
       <div className="landing wrapper w-screen h-full bg-black">
@@ -323,10 +333,13 @@ const Landing = () => {
           <BentoGridDemo />
           <div className="grid grid-cols-1 sm:grid-cols-2	">
             {" "}
-            <AnimatedPinDemo />
-            <AnimatedPinDemo />
-            <AnimatedPinDemo />
-            <AnimatedPinDemo />
+            {allCourses.length > 0 && (
+              <>
+                {allCourses.map((course, i) => (
+                  <AnimatedPinDemo key={i} course={course} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

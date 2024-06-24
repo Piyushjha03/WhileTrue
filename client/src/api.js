@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
 
 export const api = axios.create({
@@ -8,8 +7,7 @@ export const api = axios.create({
   },
 });
 
-export const checkOutPayment = async ({ amount, currency }) => {
-  const { userId } = useUser();
+export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
   const {
     data: { key },
   } = await api.get("/payment/key");
@@ -18,9 +16,7 @@ export const checkOutPayment = async ({ amount, currency }) => {
     amount,
     currency,
   });
-  console.log("====================================");
-  console.log(data);
-  console.log("====================================");
+
   const options = {
     key,
     amount: data.amount,
@@ -29,7 +25,7 @@ export const checkOutPayment = async ({ amount, currency }) => {
     description: "Course Purchase",
     image: "../../public/favicon.png",
     order_id: data.id,
-    callback_url: `http://localhost:8000/payment/verification/?clerkId=${userId}`,
+    callback_url: `http://localhost:8000/payment/verification/?id=${id}&courseID=${courseID}`,
     prefill: {
       name: "",
       email: "",
@@ -44,4 +40,19 @@ export const checkOutPayment = async ({ amount, currency }) => {
   };
   const rzp1 = window.Razorpay(options);
   rzp1.open();
+};
+
+export const getuserinfo = async (userID) => {
+  const { data } = await api.post("/user/getinfo", { clerkID: userID });
+  return data;
+};
+
+export const getAllCourses = async () => {
+  const { data } = await api.get("/course/getall");
+  return data;
+};
+
+export const getCourseInfo = async (courseID) => {
+  const { data } = await api.get(`/course/getCourseInfo/?id=${courseID}`);
+  return data;
 };

@@ -1,21 +1,26 @@
 import mongoose from "mongoose";
+const courseSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    instructors: {
+      type: Array,
+    },
+    chapters: {
+      type: Array,
+    },
+    coverImage: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const courseSchema = new mongoose.Schema({
-    courseID: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    courseName: {
-        type: String,
-        required: true,
-    },
-    courseDescription: {
-        type: String,
-        required: true,
-    },
-    
-});
-
-const Courses = mongoose.model("Courses", courseSchema);
-export default Courses;
+export const Course = mongoose.model("Course", courseSchema);

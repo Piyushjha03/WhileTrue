@@ -1,6 +1,7 @@
 import { instance } from "../utils/Razorpay.utils.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
+import Users from "../model/users/users.mongo.js";
 dotenv.config();
 export const checkout = async (req, res) => {
   const val = req.body;
@@ -14,8 +15,15 @@ export const checkout = async (req, res) => {
   res.status(200).json(order);
 };
 
-export const paymentVerify = (req, res) => {
-  console.log(req.body);
+export const paymentVerify = async (req, res) => {
+  console.log("====================================");
+  console.log(req.query.id, req.query.courseID);
+  console.log("====================================");
+  const userId = req.query.id;
+  const courseID = req.query.courseID;
+  console.log("====================================");
+  console.log(userId, courseID);
+  console.log("====================================");
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
@@ -29,11 +37,21 @@ export const paymentVerify = (req, res) => {
     .digest("hex");
 
   if (expectedSignature === razorpay_signature) {
-    res.redirect(
-      `http://localhost:5173/payment-success/?reference=${razorpay_payment_id}`
-    );
+    await Users.findOne({
+      clerkID: userId,
+    })
+      .then((user) => {
+        user.courses.push(courseID);
+        user.save();
+        return res.redirect(`http://localhost:5173/dashboard`);
+      })
+      .catch((err) => {
+        return res
+          .status(400)
+          .json({ status: "failure", message: "User not found" });
+      });
   } else {
-    res
+    return res
       .status(400)
       .json({ status: "failure", message: "Payment verification failed" });
   }

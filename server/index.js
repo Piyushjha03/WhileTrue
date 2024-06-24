@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 import Users from "./model/users/users.mongo.js";
 import paymentRouter from "./router/payments.router.js";
 import cors from "cors";
+import courseRouter from "./router/course.router.js";
+import userRouter from "./router/user.router.js";
 
 dotenv.config();
 const app = express();
@@ -124,6 +126,10 @@ app.post(
 
 // razorpay router
 app.use("/payment", paymentRouter);
+
+app.use("/user", userRouter);
+
+app.use("/course", courseRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

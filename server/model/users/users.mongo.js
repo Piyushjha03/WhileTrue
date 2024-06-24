@@ -18,8 +18,12 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   courses: {
-    type: Array,
-    default: [],
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
   },
 });
 
