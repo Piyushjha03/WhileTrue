@@ -67,7 +67,7 @@ export function Watch() {
       setcourseInfo(data.chapters);
     }
     fetchData();
-  }, [courseInfo]);
+  }, []);
 
   return (
     <>
