@@ -8,6 +8,8 @@ import paymentRouter from "./router/payments.router.js";
 import cors from "cors";
 import courseRouter from "./router/course.router.js";
 import userRouter from "./router/user.router.js";
+import chapterRouter from "./router/chapters.router.js";
+import watchedCourseRouter from "./router/watchedCourse.router.js";
 
 dotenv.config();
 const app = express();
@@ -130,6 +132,10 @@ app.use("/payment", paymentRouter);
 app.use("/user", userRouter);
 
 app.use("/course", courseRouter);
+
+app.use("/chapters", chapterRouter);
+
+app.use("/isWatched", watchedCourseRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

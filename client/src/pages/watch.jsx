@@ -1,43 +1,15 @@
 import VideoPlayer from "@/components/videoPlayer";
 
 import { Link, useLocation } from "react-router-dom";
-import {
-  Home,
-  Search,
-  Settings,
-  ShoppingCart,
-  LibraryBig,
-  UserRound,
-  Menu,
-  MonitorPlay,
-  LibraryBigIcon,
-} from "lucide-react";
+import { ArrowRight, Bot, Code, Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { Input } from "@/components/ui/input";
-
-import { Progress } from "@/components/ui/progress";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
-import { getCourseInfo } from "@/api";
+import { getCourseInfo, getIsWatched } from "@/api";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   ResizableHandle,
@@ -45,22 +17,18 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-const videoJsOptions = {
-  controls: true,
-  responsive: true,
-  fluid: true,
-  experimentalSvgIcons: true,
-  sources: [
-    {
-      src: "http://localhost:3000/course/72583452-15ad-42b1-8c8b-a21c6bdcc008/index.m3u8",
-      type: "application/x-mpegURL",
-    },
-  ],
-};
-
 export function Watch() {
+  const { user } = useUser();
   const courseID = useLocation().pathname.split("/")[2];
-  const [courseInfo, setcourseInfo] = useState();
+  const [courseInfo, setcourseInfo] = useState(undefined);
+  const [isWatched, setisWatched] = useState(undefined);
+
+  const [videoJsOptions, setVideoJsOptions] = useState(undefined);
+
+  const currI = useLocation().pathname.split("/")[3];
+
+  const url = useLocation().pathname.slice(0, -2);
+
   useEffect(() => {
     async function fetchData() {
       const data = await getCourseInfo(courseID);
@@ -68,6 +36,48 @@ export function Watch() {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    async function check() {
+      const data = await getIsWatched({ courseID, clerkID: user.id });
+      setisWatched(data.watched);
+    }
+    check();
+  }, [user]);
+
+  useEffect(() => {
+    if (!courseInfo) return;
+
+    setVideoJsOptions(() => {
+      return {
+        controls: true,
+        responsive: true,
+        fluid: true,
+        experimentalSvgIcons: true,
+        userActions: { hotkeys: true },
+        controlBar: {
+          skipButtons: {
+            backward: 5,
+            forward: 5,
+          },
+        },
+        playbackRates: [0.5, 1, 1.5, 2],
+        enableSmoothSeeking: true,
+        sources: [
+          {
+            src: courseInfo[currI].videoLink,
+            type: "application/x-mpegURL",
+          },
+        ],
+      };
+    });
+  }, [courseInfo, url, currI]);
+
+  console.log("====================================");
+  console.log(isWatched);
+  console.log("====================================");
 
   return (
     <>
@@ -101,9 +111,14 @@ export function Watch() {
                             className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
                           >
                             <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                              {course.title}
+                              <Link to={`${url}/${i}`}> {course.title}</Link>
                             </span>
-                            <Checkbox />
+
+                            {isWatched && (
+                              <Checkbox
+                                checked={isWatched.includes(courseInfo[i]._id)}
+                              />
+                            )}
                           </div>
                         </>
                       ))}
@@ -115,7 +130,7 @@ export function Watch() {
             <ResizableHandle withHandle className={"hidden sm:flex"} />
             <ResizablePanel>
               <div className="flex flex-col sm:gap-4 sm:py-4 ">
-                <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+                <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button
@@ -153,9 +168,17 @@ export function Watch() {
                                   className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
                                 >
                                   <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                                    {course.title}
+                                    <Link to={`${url}/${i}`}>
+                                      {course.title}
+                                    </Link>
                                   </span>
-                                  <Checkbox />
+                                  {isWatched && (
+                                    <Checkbox
+                                      checked={isWatched.includes(
+                                        courseInfo[i]._id
+                                      )}
+                                    />
+                                  )}
                                 </div>
                               </>
                             ))}
@@ -165,26 +188,47 @@ export function Watch() {
                     </SheetContent>
                   </Sheet>
 
-                  <div className="relative ml-auto flex-1 md:grow-1">
-                    <span className="underline text-xl">
-                      {courseInfo && courseInfo[0].title}
+                  {courseInfo && (
+                    <span className=" text-sm sm:text-2xl font-medium">
+                      L{`${+currI + 1}`}
+                      {` - ${courseInfo[currI].title}`}
                     </span>
-                  </div>
+                  )}
                   <SignedIn>
                     <UserButton />
                   </SignedIn>
                 </header>
                 <main className="grid flex-1 items-start gap-24 p-4 ">
                   <div>
-                    <VideoPlayer
-                      options={videoJsOptions}
-                      onReady={() => console.log("The video is ready to play")}
-                    />
+                    {videoJsOptions && (
+                      <VideoPlayer
+                        options={videoJsOptions}
+                        onReady={() =>
+                          console.log("The video is ready to play")
+                        }
+                      />
+                    )}
                   </div>
-                  <div className="flex w-full gap-6 flex-col  sm:flex-row  justify-between ">
-                    <Button variant="secondary">Try it yourself!</Button>
-                    <Button variant="secondary">Take a quiz</Button>
-                    <Button variant="secondary">Ai Doubt assistant</Button>
+
+                  <div className="flex justify-center items-center w-full gap-6 flex-col-reverse  sm:flex-row  ">
+                    <Link to="/playground">
+                      <Button variant="secondary">
+                        Try it yourself!
+                        <Code className="mx-2" />
+                      </Button>
+                    </Link>
+                    <Link to="/doubt">
+                      <Button variant="secondary">
+                        Ai Doubt assistant
+                        <Bot className="mx-2" />
+                      </Button>
+                    </Link>
+                    <Link to={`${url}/${+currI + 1}`}>
+                      <Button variant="secondary" className="max-w-fit">
+                        Next Video
+                        <ArrowRight className="mx-2" />
+                      </Button>
+                    </Link>
                   </div>
                 </main>
               </div>

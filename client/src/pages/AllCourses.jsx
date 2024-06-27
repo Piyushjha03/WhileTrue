@@ -217,7 +217,7 @@ const AllCourses = () => {
                           <CardHeader className="pb-2">
                             <CardDescription>Go to</CardDescription>
                             <CardTitle className="text-4xl">
-                              <Link to={`/watch/${encodeURI(course._id)}`}>
+                              <Link to={`/watch/${encodeURI(course._id)}/0`}>
                                 {course.title}
                               </Link>
                             </CardTitle>

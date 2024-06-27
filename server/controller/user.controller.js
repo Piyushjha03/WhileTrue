@@ -1,9 +1,17 @@
+import path from "path";
 import Users from "../model/users/users.mongo.js";
 
 export async function getUserInfo(req, res) {
   const clerkID = req.body.clerkID;
   await Users.findOne({ clerkID: clerkID })
-    .populate("courses")
+    .populate({
+      path: "courses",
+      populate: {
+        path: "chapters",
+        model: "Chapter",
+      },
+    })
+
     .then((user) => {
       if (user) {
         res.status(200).json(user);

@@ -11,10 +11,11 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 
 import { useUser } from "@clerk/clerk-react";
-import { createContext, useContext } from "react";
+
 import AllCourses from "./pages/AllCourses";
 import { Watch } from "./pages/watch";
 import Playground from "./pages/playground";
+import { Doubt } from "./pages/doubt";
 
 const router = createBrowserRouter([
   {
@@ -41,12 +42,16 @@ const router = createBrowserRouter([
     element: <AllCourses />,
   },
   {
-    path: "watch/:id",
+    path: "watch/:id/:id",
     element: <Watch />,
   },
   {
     path: "/playground",
     element: <Playground />,
+  },
+  {
+    path: "/doubt",
+    element: <Doubt />,
   },
 ]);
 
@@ -58,10 +63,6 @@ if (!PUBLISHABLE_KEY) {
 
 export default function ClerkUser() {
   const { isSignedIn, user } = useUser();
-
-  const userContext = createContext({
-    userId: user.id,
-  });
 
   if (isSignedIn) {
     return user.id;

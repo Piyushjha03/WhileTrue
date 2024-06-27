@@ -2,7 +2,11 @@ import { Course } from "./courses.mongo.js";
 
 export async function getCourse(courseId) {
   try {
-    const course = await Course.findById(courseId);
+    const course = await Course.findById(courseId).populate({
+      path: "chapters",
+      model: "Chapter",
+    });
+
     return course;
   } catch (error) {
     throw error;

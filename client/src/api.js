@@ -56,3 +56,18 @@ export const getCourseInfo = async (courseID) => {
   const { data } = await api.get(`/course/getCourseInfo/?id=${courseID}`);
   return data;
 };
+
+export const getIsWatched = async ({ clerkID, courseID }) => {
+  const { data } = await api.post("/iswatched/get", { clerkID, courseID });
+
+  return data;
+};
+
+export const postIsWatched = async (clerkID, courseID, watched) => {
+  const { data } = await api.post("/isWatched/post", {
+    clerkID,
+    courseID,
+    watched,
+  });
+  return data;
+};

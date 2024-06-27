@@ -8,9 +8,12 @@ const courseSchema = new mongoose.Schema(
     instructors: {
       type: Array,
     },
-    chapters: {
-      type: Array,
-    },
+    chapters: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chapter",
+      },
+    ],
     coverImage: {
       type: String,
       required: true,
