@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Home,
   Search,
@@ -44,7 +44,7 @@ export function DashboardUI() {
         <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
           <nav className="flex flex-col items-center gap-6 px-2 sm:py-4 mt-2">
             <Link
-              to="/dashboard"
+              to="/"
               className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
             >
               <img
@@ -57,49 +57,61 @@ export function DashboardUI() {
             </Link>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="/dashboard"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  className={({ isActive }) =>
+                    isActive
+                      ? " flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors hover:text-foreground md:h-8 md:w-8"
+                      : " flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  }
                 >
                   <Home className="h-5 w-5" />
                   <span className="sr-only">Dashboard</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Dashboard</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="/allcourses"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  className={({ isActive }) =>
+                    isActive
+                      ? " flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors hover:text-foreground md:h-8 md:w-8"
+                      : " flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  }
                 >
                   <LibraryBig className="h-5 w-5" />
                   <span className="sr-only">Courses</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Courses</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="/cart"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  className={({ isActive }) =>
+                    isActive
+                      ? " flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors hover:text-foreground md:h-8 md:w-8"
+                      : " flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                  }
                 >
                   <ShoppingCart className="h-5 w-5" />
                   <span className="sr-only">Cart</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Cart</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="/profile"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <UserRound className="h-5 w-5" />
                   <span className="sr-only">Customers</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Customers</TooltipContent>
             </Tooltip>
@@ -107,13 +119,13 @@ export function DashboardUI() {
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   href="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Settings className="h-5 w-5" />
                   <span className="sr-only">Settings</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Settings</TooltipContent>
             </Tooltip>
@@ -130,7 +142,7 @@ export function DashboardUI() {
               </SheetTrigger>
               <SheetContent side="left" className="sm:max-w-xs">
                 <nav className="grid gap-6 text-lg font-medium">
-                  <Link
+                  <NavLink
                     to="/dashboard"
                     className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                   >
@@ -140,42 +152,42 @@ export function DashboardUI() {
                       className="h-5 w-5 transition-all group-hover:scale-110"
                     />
                     <span className="sr-only">While True</span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/dashboard"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <Home className="h-5 w-5" />
                     Dashboard
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/allcourses"
                     className="flex items-center gap-4 px-2.5 text-foreground"
                   >
                     <LibraryBig className="h-5 w-5" />
                     Courses
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/cart"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <ShoppingCart className="h-5 w-5" />
                     Cart
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/profile"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <UserRound className="h-5 w-5" />
                     Profile
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     href="#"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <Settings className="h-5 w-5" />
                     Settings
-                  </Link>
+                  </NavLink>
                 </nav>
               </SheetContent>
             </Sheet>

@@ -16,6 +16,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import CourseTitle from "@/components/coursetitle";
 
 export function Watch() {
   const { user } = useUser();
@@ -67,7 +68,9 @@ export function Watch() {
         enableSmoothSeeking: true,
         sources: [
           {
-            src: courseInfo[currI].videoLink,
+            src:
+              "https://d23kd7w596xmq4.cloudfront.net/" +
+              courseInfo[currI].videoLink,
             type: "application/x-mpegURL",
           },
         ],
@@ -106,20 +109,15 @@ export function Watch() {
                     <>
                       {courseInfo.map((course, i) => (
                         <>
-                          <div
-                            key={i}
-                            className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
-                          >
-                            <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                              <Link to={`${url}/${i}`}> {course.title}</Link>
-                            </span>
-
-                            {isWatched && (
-                              <Checkbox
-                                checked={isWatched.includes(courseInfo[i]._id)}
-                              />
-                            )}
-                          </div>
+                          <CourseTitle
+                            i={i}
+                            url={url}
+                            course={course}
+                            isWatched={isWatched}
+                            courseInfo={courseInfo}
+                            user={user}
+                            courseID={courseID}
+                          />
                         </>
                       ))}
                     </>
@@ -223,12 +221,14 @@ export function Watch() {
                         <Bot className="mx-2" />
                       </Button>
                     </Link>
-                    <Link to={`${url}/${+currI + 1}`}>
-                      <Button variant="secondary" className="max-w-fit">
-                        Next Video
-                        <ArrowRight className="mx-2" />
-                      </Button>
-                    </Link>
+                    {courseInfo && (
+                      <Link to={`${url}/${(+currI + 1) % courseInfo.length}`}>
+                        <Button variant="secondary" className="max-w-fit">
+                          Next Video
+                          <ArrowRight className="mx-2" />
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </main>
               </div>

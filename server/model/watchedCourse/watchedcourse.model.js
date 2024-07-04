@@ -31,3 +31,20 @@ export async function addWatchedCourse(watchedCourseDetails) {
     throw error;
   }
 }
+
+export async function updateWatchedCourse(watchedCourseDetails) {
+  try {
+    const { clerkID, courseID, watched } = watchedCourseDetails;
+    const findCourse = await getWatchedCourse({ clerkID, courseID });
+
+    if (findCourse) {
+      findCourse.watched.remove(watched);
+      await findCourse.save();
+      return findCourse;
+    } else {
+      throw new Error("Course not found");
+    }
+  } catch (error) {
+    throw error;
+  }
+}

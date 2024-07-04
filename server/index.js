@@ -10,8 +10,12 @@ import courseRouter from "./router/course.router.js";
 import userRouter from "./router/user.router.js";
 import chapterRouter from "./router/chapters.router.js";
 import watchedCourseRouter from "./router/watchedCourse.router.js";
+import path from "path";
+import { getSignedURL } from "./controller/aws.controller.js";
+// import { uploadFoldertoS3 } from "./controller/aws.controller.js";
 
 dotenv.config();
+
 const app = express();
 const uri = process.env.MONGODB_URI;
 
@@ -136,6 +140,10 @@ app.use("/course", courseRouter);
 app.use("/chapters", chapterRouter);
 
 app.use("/isWatched", watchedCourseRouter);
+
+console.log("====================================");
+console.log(await getSignedURL("local_folder/1080p.m3u8"));
+console.log("====================================");
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

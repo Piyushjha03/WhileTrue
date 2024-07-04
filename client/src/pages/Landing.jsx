@@ -331,7 +331,7 @@ const Landing = () => {
           <SparklesPreview />
           <HeroScrollDemo />
           <BentoGridDemo />
-          <div className="grid grid-cols-1 sm:grid-cols-2	">
+          <div className="grid grid-cols-1 px-44 sm:grid-cols-2	">
             {" "}
             {allCourses.length > 0 && (
               <>

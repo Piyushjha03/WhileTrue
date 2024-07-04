@@ -35,22 +35,27 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
+    errorElement: <div>404 Not Found</div>,
     element: <Dashboard />,
   },
   {
     path: "allcourses",
+    errorElement: <div>404 Not Found</div>,
     element: <AllCourses />,
   },
   {
     path: "watch/:id/:id",
+    errorElement: <div>404 Not Found</div>,
     element: <Watch />,
   },
   {
     path: "/playground",
+    errorElement: <div>404 Not Found</div>,
     element: <Playground />,
   },
   {
     path: "/doubt",
+    errorElement: <div>404 Not Found</div>,
     element: <Doubt />,
   },
 ]);
@@ -72,6 +77,10 @@ export default function ClerkUser() {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ClerkProvider
+      signInForceRedirectUrl="/dashboard"
+      signUpForceRedirectUrl="/dashboard"
+      signInFallbackRedirectUrl="/"
+      signUpFallbackRedirectUrl="/"
       appearance={{
         baseTheme: dark,
       }}

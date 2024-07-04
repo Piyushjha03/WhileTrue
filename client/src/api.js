@@ -63,8 +63,17 @@ export const getIsWatched = async ({ clerkID, courseID }) => {
   return data;
 };
 
-export const postIsWatched = async (clerkID, courseID, watched) => {
-  const { data } = await api.post("/isWatched/post", {
+export const postIsWatched = async ({ clerkID, courseID, watched }) => {
+  const { data } = await api.post("/isWatched/add", {
+    clerkID,
+    courseID,
+    watched,
+  });
+  return data;
+};
+
+export const updateIsWatched = async ({ clerkID, courseID, watched }) => {
+  const { data } = await api.post("/isWatched/update", {
     clerkID,
     courseID,
     watched,
