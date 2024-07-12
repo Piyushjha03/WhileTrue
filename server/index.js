@@ -11,7 +11,9 @@ import userRouter from "./router/user.router.js";
 import chapterRouter from "./router/chapters.router.js";
 import watchedCourseRouter from "./router/watchedCourse.router.js";
 import path from "path";
-import { getSignedURL } from "./controller/aws.controller.js";
+import { uploadFolderToS3 } from "./controller/aws.controller.js";
+import doubtsRouter from "./router/doubts.router.js";
+
 // import { uploadFoldertoS3 } from "./controller/aws.controller.js";
 
 dotenv.config();
@@ -141,9 +143,7 @@ app.use("/chapters", chapterRouter);
 
 app.use("/isWatched", watchedCourseRouter);
 
-console.log("====================================");
-console.log(await getSignedURL("local_folder/1080p.m3u8"));
-console.log("====================================");
+app.use("/doubts", doubtsRouter);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

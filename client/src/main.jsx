@@ -16,6 +16,7 @@ import AllCourses from "./pages/AllCourses";
 import { Watch } from "./pages/watch";
 import Playground from "./pages/playground";
 import { Doubt } from "./pages/doubt";
+import Cart from "./pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
     path: "allcourses",
     errorElement: <div>404 Not Found</div>,
     element: <AllCourses />,
+  },
+  {
+    path: "cart",
+    errorElement: <div>404 Not Found</div>,
+    element: <Cart />,
   },
   {
     path: "watch/:id/:id",

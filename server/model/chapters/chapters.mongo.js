@@ -8,3 +8,12 @@ export async function addChapter(chapterDetails) {
     throw error;
   }
 }
+
+export async function getChapter(chapterID) {
+  try {
+    const chapter = await Chapter.findById(chapterID);
+    return chapter;
+  } catch (error) {
+    throw error;
+  }
+}

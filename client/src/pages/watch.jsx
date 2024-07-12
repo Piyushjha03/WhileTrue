@@ -196,7 +196,7 @@ export function Watch() {
                     <UserButton />
                   </SignedIn>
                 </header>
-                <main className="grid flex-1 items-start gap-24 p-4 ">
+                <main className="grid flex-1 items-start gap-24 p-4">
                   <div>
                     {videoJsOptions && (
                       <VideoPlayer
@@ -215,7 +215,9 @@ export function Watch() {
                         <Code className="mx-2" />
                       </Button>
                     </Link>
-                    <Link to="/doubt">
+                    <Link
+                      to={`/doubt?cid=${courseInfo && courseInfo[currI]._id}`}
+                    >
                       <Button variant="secondary">
                         Ai Doubt assistant
                         <Bot className="mx-2" />

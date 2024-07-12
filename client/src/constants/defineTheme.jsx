@@ -12,14 +12,10 @@ const monacoThemes = {
   "clouds-midnight": "Clouds Midnight",
   clouds: "Clouds",
   cobalt: "Cobalt",
-  cobalt2: "Cobalt2",
   dawn: "Dawn",
-  dracula: "Dracula",
   dreamweaver: "Dreamweaver",
   eiffel: "Eiffel",
   "espresso-libre": "Espresso Libre",
-  "github-dark": "GitHub Dark",
-  "github-light": "GitHub Light",
   github: "GitHub",
   idle: "IDLE",
   katzenmilch: "Katzenmilch",
@@ -31,7 +27,6 @@ const monacoThemes = {
   "monokai-bright": "Monokai Bright",
   monokai: "Monokai",
   "night-owl": "Night Owl",
-  nord: "Nord",
   "oceanic-next": "Oceanic Next",
   "pastels-on-dark": "Pastels on Dark",
   "slush-and-poppies": "Slush and Poppies",
@@ -56,16 +51,23 @@ const monacoThemes = {
   monoindustrial: "monoindustrial",
 };
 
-const DefineTheme = (theme) => {
+const defineTheme = (theme) => {
+  console.log(monacoThemes);
+
   return new Promise((res, rej) => {
     Promise.all([
       loader.init(),
-      import(`monaco-themes/themes/${monacoThemes[theme]}.json`).catch(rej),
-    ]).then(([monaco, themeData]) => {
-      monaco.editor.defineTheme(theme, themeData);
-      res();
-    });
+      import(`monaco-themes/themes/${monacoThemes[theme]}.json`),
+    ])
+      .then(([monaco, themeData]) => {
+        monaco.editor.defineTheme(theme, themeData);
+        res();
+      })
+      .catch((error) => {
+        console.error("Error loading theme:", error);
+        rej(error);
+      });
   });
 };
 
-export { DefineTheme };
+export { defineTheme };

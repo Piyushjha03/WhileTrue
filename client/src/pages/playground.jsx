@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CodeEditorWindow from "@/components/codeEditor";
 import axios from "axios";
 import { classnames } from "@/components/genral";
@@ -7,13 +7,17 @@ import { languageOptions } from "@/constants/languageArray";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefineTheme } from "@/constants/defineTheme";
-import useKeyPress from "@/components/usePressKeys";
+import { defineTheme } from "@/constants/defineTheme";
+import useKeyPress from "@/hooks/usePressKey";
+
 import OutputWindow from "@/components/outputWindow";
 import CustomInput from "@/components/customInput";
 import OutputDetails from "@/components/outputDetails";
 import ThemeDropdown from "@/components/themeDropdown";
 import LanguagesDropdown from "@/components/languageDropdown";
+import Aside from "@/components/aside";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import MobileAside from "@/components/mobileaside";
 
 const javascriptDefault = `/**
 * Problem: Binary Search: Search a sorted array for a target value.
@@ -50,7 +54,7 @@ const Playground = () => {
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
-  const [theme, setTheme] = useState("oceanic-next");
+  const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState(languageOptions[0]);
 
   const enterPress = useKeyPress("Enter");
@@ -89,13 +93,13 @@ const Playground = () => {
     };
     const options = {
       method: "POST",
-      url: process.env.REACT_APP_RAPID_API_URL,
+      url: import.meta.env.VITE_APP_RAPID_API_URL,
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+        "X-RapidAPI-Host": import.meta.env.VITE_APP_RAPID_API_HOST,
+        "X-RapidAPI-Key": import.meta.env.VITE_APP_RAPID_API_KEY,
       },
       data: formData,
     };
@@ -128,11 +132,11 @@ const Playground = () => {
   const checkStatus = async (token) => {
     const options = {
       method: "GET",
-      url: process.env.REACT_APP_RAPID_API_URL + "/" + token,
+      url: import.meta.env.VITE_APP_RAPID_API_URL + "/" + token,
       params: { base64_encoded: "true", fields: "*" },
       headers: {
-        "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+        "X-RapidAPI-Host": import.meta.env.VITE_APP_RAPID_API_HOST,
+        "X-RapidAPI-Key": import.meta.env.VITE_APP_RAPID_API_KEY,
       },
     };
     try {
@@ -167,11 +171,11 @@ const Playground = () => {
     if (["light", "vs-dark"].includes(theme.value)) {
       setTheme(theme);
     } else {
-      DefineTheme(theme.value).then((_) => setTheme(theme));
+      defineTheme(theme.value).then((_) => setTheme(theme));
     }
   }
   useEffect(() => {
-    DefineTheme("oceanic-next").then((_) =>
+    defineTheme("oceanic-next").then((_) =>
       setTheme({ value: "oceanic-next", label: "Oceanic Next" })
     );
   }, []);
@@ -200,7 +204,7 @@ const Playground = () => {
   };
 
   return (
-    <>
+    <div>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -212,47 +216,58 @@ const Playground = () => {
         draggable
         pauseOnHover
       />
-
-      <div className="flex flex-row">
-        <div className="px-4 py-2">
-          <LanguagesDropdown onSelectChange={onSelectChange} />
-        </div>
-        <div className="px-4 py-2">
-          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
-        </div>
+      <div className="pt-4 pl-4">
+        <TooltipProvider>
+          <Aside />
+          <MobileAside />
+        </TooltipProvider>
       </div>
-      <div className="flex flex-row space-x-4 items-start px-4 py-4">
-        <div className="flex flex-col w-full h-full justify-start items-end">
-          <CodeEditorWindow
-            code={code}
-            onChange={onChange}
-            language={language?.value}
-            theme={theme.value}
-          />
-        </div>
 
-        <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
-          <OutputWindow outputDetails={outputDetails} />
-          <div className="flex flex-col items-end">
-            <CustomInput
-              customInput={customInput}
-              setCustomInput={setCustomInput}
-            />
-            <button
-              onClick={handleCompile}
-              disabled={!code}
-              className={classnames(
-                "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-                !code ? "opacity-50" : ""
-              )}
-            >
-              {processing ? "Processing..." : "Compile and Execute"}
-            </button>
+      <div className=" ml-0 mt-4 sm:ml-16 min-w-[500px]">
+        <div className="flex flex-row">
+          <div className="px-4 py-2">
+            <LanguagesDropdown onSelectChange={onSelectChange} />
           </div>
-          {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+          <div className="px-4 py-2">
+            <ThemeDropdown
+              handleThemeChange={handleThemeChange}
+              theme={theme}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row space-x-4 items-start px-4 py-4">
+          <div className="flex flex-col w-full h-full justify-start items-end">
+            <CodeEditorWindow
+              code={code}
+              onChange={onChange}
+              language={language?.value}
+              theme={theme.value}
+            />
+          </div>
+
+          <div className="right-container flex flex-shrink-0 w-[90%] sm:w-[30%] flex-col">
+            <OutputWindow outputDetails={outputDetails} />
+            <div className="flex flex-col items-end">
+              <CustomInput
+                customInput={customInput}
+                setCustomInput={setCustomInput}
+              />
+              <button
+                onClick={handleCompile}
+                disabled={!code}
+                className={classnames(
+                  "mt-4 border-2 border-black text-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                  !code ? "opacity-50" : ""
+                )}
+              >
+                {processing ? "Processing..." : "Compile and Execute"}
+              </button>
+            </div>
+            {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Playground;

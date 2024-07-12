@@ -80,3 +80,11 @@ export const updateIsWatched = async ({ clerkID, courseID, watched }) => {
   });
   return data;
 };
+
+export const askDoubt = async ({ query, videoID }) => {
+  const { data } = await api.post("/doubts/query", {
+    query: query,
+    videoID: videoID,
+  });
+  return data;
+};

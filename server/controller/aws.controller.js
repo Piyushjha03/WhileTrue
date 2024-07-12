@@ -1,13 +1,7 @@
-import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 dotenv.config();
 
@@ -24,48 +18,47 @@ const s3Client = new S3Client({
     secretAccessKey: SECRET_KEY,
   },
 });
-
 // Function to upload a single file to S3
-const uploadFileToAWS = async (filePath, fileKey) => {
-  const fileContent = fs.createReadStream(filePath);
+const uploadFileToS3 = async (localPath, remotePath) => {
+  const fileContent = fs.readFileSync(localPath);
 
   const params = {
     Bucket: BUCKET_NAME,
-    Key: fileKey,
+    Key: remotePath,
     Body: fileContent,
     ContentType: "application/octet-stream",
   };
 
   try {
-    const data = await s3Client.send(new PutObjectCommand(params));
-    console.log(`Successfully uploaded ${filePath} as ${fileKey}`);
-    return fileKey;
+    await s3Client.send(new PutObjectCommand(params));
+    console.log(`Successfully uploaded ${localPath} as ${remotePath}`);
   } catch (error) {
-    console.log("Error uploading file", error);
-    return null;
+    console.error(`Error uploading ${localPath}:`, error);
   }
 };
 
 // Function to upload all files in a folder to S3 maintaining structure
-const uploadFolderToAWS = async (folderPath, basePath = folderPath) => {
-  const files = fs.readdirSync(folderPath);
+export const uploadFolderToS3 = async ({ localFolder, remoteFolder }) => {
+  const contents = fs.readdirSync(localFolder);
 
-  for (const file of files) {
-    const filePath = path.join(folderPath, file);
-    const fileStat = fs.statSync(filePath);
+  for (const content of contents) {
+    const contentPath = path.join(localFolder, content);
 
-    if (fileStat.isDirectory()) {
+    if (fs.lstatSync(contentPath).isDirectory()) {
       // Recursively upload subfolders
-      await uploadFolderToAWS(filePath, basePath);
+      await uploadFolderToS3({
+        localFolder: contentPath,
+        remoteFolder: path.join(remoteFolder, content),
+      });
     } else {
-      // Maintain the relative path structure
-      const relativeFilePath = path.relative(basePath, filePath);
-      await uploadFileToAWS(filePath, relativeFilePath);
+      // Upload individual files
+      const remotePath = path.join(remoteFolder, content);
+      await uploadFileToS3(contentPath, remotePath);
     }
   }
 };
 
-// Function to get a signed URL for a file in S3
+// // Function to get a signed URL for a file in S3
 export const getSignedURL = async (Link) => {
   const command = new GetObjectCommand({
     Bucket: BUCKET_NAME,
@@ -83,31 +76,6 @@ const currentFileUrl = import.meta.url;
 const currentDirPath = path.dirname(new URL(currentFileUrl).pathname);
 const folderPath = path.join(
   currentDirPath,
-  "/uploads/3f4b0a17-a688-4570-9f4a-22a28f5d51cc"
+  "../uploads/3f4b0a17-a688-4570-9f4a-22a28f5d51cc"
 );
-
-// uploadFolderToAWS(folderPath)
-//   .then(() => {
-//     console.log("All files uploaded.");
-//   })
-//   .catch((err) => {
-//     console.error("Error uploading folder:", err);
-//   });
-
-// (async () => {
-//   await uploadFoldertoS3({
-//     local_folder: folderPath,
-//     remote_folder: "local_folder",
-//   });
-// })();
-
-// Example usage
-// const folderPath = path.join(__dirname, "path_to_your_folder");
-
-// uploadFolderToAWS(folderPath)
-//   .then(() => {
-//     console.log("All files uploaded.");
-//   })
-//   .catch((err) => {
-//     console.error("Error uploading folder:", err);
-//   });
+const remoteFolder = "test_folder";

@@ -1,7 +1,10 @@
-import { checkOutPayment } from "@/api";
+import { checkOutPayment, getuserinfo } from "@/api";
 import { InfiniteMovingCards } from "@/components/ui/moving-cards";
 import { useUser } from "@clerk/clerk-react";
 import { useLocation } from "react-router-dom";
+
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function InfiniteMovingCardsDemo() {
   return (
@@ -64,10 +67,74 @@ const CourseInfo = () => {
   const { user } = useUser();
 
   const courseID = useLocation().pathname.split("/").pop();
+  const notify = () =>
+    toast.info("You need to be logged in to purchase the course!", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+
+  const handleNotLoggedIn = () => {
+    console.log("Not logged in");
+    notify();
+  };
+
+  const handlePayment = async () => {
+    const data = await getuserinfo(user.id);
+    console.log("====================================");
+    console.log(
+      data.courses,
+      courseID,
+      data.courses.includes("667d16b00039d2d670f02b1a")
+    );
+    console.log("====================================");
+    for (let i = 0; i < data.courses.length; i++) {
+      if (data.courses[i]._id === courseID) {
+        toast.error("You have already purchased this course!", {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        return;
+      }
+
+      checkOutPayment({
+        amount: 99,
+        currency: "INR",
+        id: user.id,
+        courseID,
+      });
+    }
+  };
 
   return (
     <>
       <div className="w-screen h-full bg-black p-8">
+        <ToastContainer
+          position="top-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
         <div className="intructortext text-gray-200 font-primary font-extrabold text-2xl md:text-6xl sm:text-4xl text-center">
           Next.Js : Full Stack Course
         </div>{" "}
@@ -332,15 +399,10 @@ const CourseInfo = () => {
             <div
               className="buy-now w-[90%] cursor-pointer flex items-center justify-center text-lg font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 bg-slate-900 text-slate-50 hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 px-4  bg-gradient-to-r from-[#854cff] to-[#b573f8] mt-7 h-[45px] rounded-md py-[18px] sm:h-fit"
               onClick={() => {
-                checkOutPayment({
-                  amount: 99,
-                  currency: "INR",
-                  id: user.id,
-                  courseID,
-                });
+                user ? handlePayment() : handleNotLoggedIn();
               }}
             >
-              Pay now
+              Buy Now
             </div>
           </div>
         </div>

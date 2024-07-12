@@ -1,5 +1,4 @@
 import { Search, MonitorPlay, LibraryBigIcon } from "lucide-react";
-
 import {
   Card,
   CardContent,
@@ -102,7 +101,7 @@ export function DashboardUI() {
   );
 }
 
-const Dashboard = () => {
+const Cart = () => {
   return (
     <>
       <div className="dashboard-wrapper w-screen h-screen bg-black">
@@ -112,4 +111,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Cart;
