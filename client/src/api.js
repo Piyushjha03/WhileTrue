@@ -22,8 +22,14 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
 
   const callbackurl =
     import.meta.env.VITE_ENV === "development"
-      ? import.meta.env.VITE_DEV_FRONTEND_URL
-      : import.meta.env.VITE_PROD_FRONTEND_URL;
+      ? import.meta.env.VITE_DEV_BACKEND_URL
+      : import.meta.env.VITE_PROD_BACKEND_URL;
+
+  console.log("====================================");
+  console.log(
+    `${callbackurl}/payment/verification?id=${id}&courseID=${courseID}`
+  );
+  console.log("====================================");
 
   const options = {
     key,
@@ -33,7 +39,7 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
     description: "Course Purchase",
     image: "../../favicon.png",
     order_id: data.id,
-    callback_url: `${callbackurl}/dashboard`,
+    callback_url: `${callbackurl}/payment/verification?id=${id}&courseID=${courseID}`,
     prefill: {
       name: "",
       email: "",
