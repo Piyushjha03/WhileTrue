@@ -17,8 +17,6 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import CourseTitle from "@/components/coursetitle";
-import Aside from "@/components/aside";
-import MobileAside from "@/components/mobileaside";
 
 export function Watch() {
   const { user } = useUser();
@@ -90,13 +88,103 @@ export function Watch() {
         <ResizablePanelGroup direction="horizontal">
           <div className="flex min-h-screen w-full  bg-muted/40">
             <ResizablePanel defaultSize={25} className={"hidden sm:block"}>
-              <Aside />
+              <aside className="overflow-hidden h-full p-2 inset-y-0 left-0 z-10 hidden flex-col border-r bg-background sm:flex ">
+                <div className="flex w-full items-center">
+                  <Link
+                    to="/dashboard"
+                    className="m-4 group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+                  >
+                    <img
+                      src="/favicon.webp"
+                      alt="WhileTrue"
+                      className="h-5 w-5 transition-all group-hover:scale-110"
+                    />
+                    {/* <Package2 className="h-4 w-4 transition-all group-hover:scale-110" /> */}
+                    <span className="sr-only">WhileTrue</span>
+                  </Link>
+                  <span>WhileTrue</span>
+                </div>
+                <div className="max-h-[80%] overflow-y-scroll">
+                  {courseInfo && (
+                    <>
+                      {courseInfo.map((course, i) => (
+                        <>
+                          <CourseTitle
+                            i={i}
+                            url={url}
+                            course={course}
+                            isWatched={isWatched}
+                            courseInfo={courseInfo}
+                            user={user}
+                            courseID={courseID}
+                          />
+                        </>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </aside>
             </ResizablePanel>
             <ResizableHandle withHandle className={"hidden sm:flex"} />
             <ResizablePanel>
               <div className="flex flex-col sm:gap-4 sm:py-4 ">
                 <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-                  <MobileAside />
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        className="sm:hidden"
+                      >
+                        <Menu className="h-5 w-5" />
+                        <span className="sr-only">Toggle Menu</span>
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="sm:max-w-xs">
+                      <div className="flex w-full items-center">
+                        <Link
+                          to="/dashboard"
+                          className="m-4 group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+                        >
+                          <img
+                            src="/favicon.png"
+                            alt="WhileTrue"
+                            className="h-5 w-5 transition-all group-hover:scale-110"
+                          />
+                          {/* <Package2 className="h-4 w-4 transition-all group-hover:scale-110" /> */}
+                          <span className="sr-only">WhileTrue</span>
+                        </Link>
+                        <span>WhileTrue</span>
+                      </div>
+                      <div className="max-h-[80%] overflow-y-scroll">
+                        {courseInfo && (
+                          <>
+                            {courseInfo.map((course, i) => (
+                              <>
+                                <div
+                                  key={i}
+                                  className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
+                                >
+                                  <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                                    <Link to={`${url}/${i}`}>
+                                      {course.title}
+                                    </Link>
+                                  </span>
+                                  {isWatched && (
+                                    <Checkbox
+                                      checked={isWatched.includes(
+                                        courseInfo[i]._id
+                                      )}
+                                    />
+                                  )}
+                                </div>
+                              </>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    </SheetContent>
+                  </Sheet>
 
                   {courseInfo && (
                     <span className=" text-sm sm:text-2xl font-medium">
