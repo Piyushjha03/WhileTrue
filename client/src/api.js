@@ -31,7 +31,7 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
     currency: "INR",
     name: "While True",
     description: "Course Purchase",
-    image: "../../public/favicon.png",
+    image: "../../favicon.png",
     order_id: data.id,
     callback_url: `${callbackurl}/dashboard`,
     prefill: {
