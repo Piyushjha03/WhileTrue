@@ -26,6 +26,16 @@ module.exports = {
         cal: ["cal sans", "Matter", "sans-serif"],
         hand: ['"Virgil 3 YOFF"', "cal sans", "Matter", "sans-serif"],
       },
+      animation: {
+        backgroundPositionSpin:
+          "background-position-spin 3000ms infinite alternate",
+      },
+      keyframes: {
+        "background-position-spin": {
+          "0%": { backgroundPosition: "top center" },
+          "100%": { backgroundPosition: "bottom center" },
+        },
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

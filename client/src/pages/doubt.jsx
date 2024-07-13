@@ -94,7 +94,7 @@ export function Doubt() {
                   navigate(-1);
                 }}
               >
-                Go Back to Course
+                Go Back
                 <MoveLeft className="h-5 w-5" />
               </button>
             </div>

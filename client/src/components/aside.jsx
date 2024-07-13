@@ -5,6 +5,9 @@ import {
   ShoppingCart,
   LibraryBig,
   UserRound,
+  Bot,
+  Code,
+  Command,
 } from "lucide-react";
 
 import {
@@ -60,36 +63,48 @@ const Aside = () => {
               className=" flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8 "
             >
               <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Cart</span>
+              <span className="sr-only">Shop</span>
             </NavLink>
           </TooltipTrigger>
-          <TooltipContent side="right">Cart</TooltipContent>
+          <TooltipContent side="right">Shop</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
             <NavLink
-              to="/profile"
+              to="/playground"
               className=" flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8 "
             >
-              <UserRound className="h-5 w-5" />
-              <span className="sr-only">Customers</span>
+              <Code className="h-5 w-5" />
+              <span className="sr-only">Playground</span>
             </NavLink>
           </TooltipTrigger>
-          <TooltipContent side="right">Customers</TooltipContent>
+          <TooltipContent side="right">Playground</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <NavLink
+              to="/doubt"
+              className=" flex h-9 w-9 items-center justify-center rounded-lg  text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8 "
+            >
+              <Bot className="h-5 w-5" />
+              <span className="sr-only">AI bot</span>
+            </NavLink>
+          </TooltipTrigger>
+          <TooltipContent side="right">AI bot</TooltipContent>
         </Tooltip>
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
         <Tooltip>
           <TooltipTrigger asChild>
             <NavLink
-              href="#"
+              to="/admin"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             >
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
+              <Command className="h-5 w-5" />
+              <span className="sr-only">Admin</span>
             </NavLink>
           </TooltipTrigger>
-          <TooltipContent side="right">Settings</TooltipContent>
+          <TooltipContent side="right">Admin</TooltipContent>
         </Tooltip>
       </nav>
     </aside>

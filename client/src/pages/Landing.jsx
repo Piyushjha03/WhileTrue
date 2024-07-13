@@ -330,8 +330,27 @@ const Landing = () => {
         <div className="landing-content">
           <SparklesPreview />
           <HeroScrollDemo />
+          <div className="w-full mb-4 flex justify-center items-center">
+            <h1 className="text-4xl font-semibold text-white text-center">
+              See What others have
+              <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none text-zinc-200">
+                Build
+              </span>
+            </h1>
+          </div>
+
           <BentoGridDemo />
-          <div className="grid grid-cols-1 px-44 sm:grid-cols-2	">
+          <div className="w-full mt-60 flex justify-center items-center">
+            <h1 className="text-4xl font-semibold text-white text-center">
+              Get lifetime access to our
+              <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none text-zinc-200">
+                Courses
+              </span>
+            </h1>
+          </div>
+          <div className="w-full grid grid-cols-1 px-0 md:grid-cols-2	">
             {" "}
             {allCourses.length > 0 && (
               <>

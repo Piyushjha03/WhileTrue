@@ -9,6 +9,9 @@ import {
   Menu,
   MonitorPlay,
   LibraryBigIcon,
+  Code,
+  Bot,
+  Command,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -33,10 +36,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SignedIn, UserButton } from "@clerk/clerk-react";
-import Example from "@/components/pieChart";
-import LineChart from "@/components/linechart";
-import Aside from "@/components/aside";
+
 const MobileAside = () => {
   return (
     <Sheet>
@@ -49,7 +49,7 @@ const MobileAside = () => {
       <SheetContent side="left" className="sm:max-w-xs">
         <nav className="grid gap-6 text-lg font-medium">
           <Link
-            to="/dashboard"
+            to="/"
             className=" group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base "
           >
             <img
@@ -78,21 +78,28 @@ const MobileAside = () => {
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
             <ShoppingCart className="h-5 w-5" />
-            Cart
+            Shop
           </Link>
           <Link
-            to="/profile"
+            to="/playground"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
-            <UserRound className="h-5 w-5" />
-            Profile
+            <Code className="h-5 w-5" />
+            Playground
           </Link>
           <Link
-            href="#"
+            to="/doubt"
             className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
           >
-            <Settings className="h-5 w-5" />
-            Settings
+            <Bot className="h-5 w-5" />
+            AI Bot
+          </Link>
+          <Link
+            href="/admin"
+            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+          >
+            <Command className="h-5 w-5" />
+            Admin
           </Link>
         </nav>
       </SheetContent>

@@ -87,13 +87,7 @@ const CourseInfo = () => {
 
   const handlePayment = async () => {
     const data = await getuserinfo(user.id);
-    console.log("====================================");
-    console.log(
-      data.courses,
-      courseID,
-      data.courses.includes("667d16b00039d2d670f02b1a")
-    );
-    console.log("====================================");
+
     for (let i = 0; i < data.courses.length; i++) {
       if (data.courses[i]._id === courseID) {
         toast.error("You have already purchased this course!", {
@@ -135,7 +129,7 @@ const CourseInfo = () => {
           transition={Bounce}
         />
         <div className="intructortext text-gray-200 font-primary font-extrabold text-2xl md:text-6xl sm:text-4xl text-center">
-          Next.Js : Full Stack Course
+          Welcome to WhileTrue:
         </div>{" "}
         <div className="intro-video flex flex-col justify-center items-center border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8  shadow backdrop-blur-3xl  mt-12 p-2 max-w-[711px] mx-auto rounded-lg">
           <iframe
@@ -153,14 +147,6 @@ const CourseInfo = () => {
               borderRadius: "12px",
             }}
           ></iframe>
-          <div className="instructor-info mt-8">
-            <div className="intructortext text-[#D0DFFF] font-primary mb-4">
-              Meet your instructors...
-            </div>
-            <div className="flex flex-row items-center justify-center mb-10 w-full">
-              {/* <AnimatedTooltip items={people} /> */}
-            </div>
-          </div>
         </div>
         <div className="testimonials mt-24">
           <div className="intructortext text-[#D0DFFF] font-primary mt-28 mb-16 text-2xl md:text-6xl sm:text-4xl text-center">
@@ -174,7 +160,7 @@ const CourseInfo = () => {
         <div className="all-syllabus mt-28 grid w-full grid-cols-1 gap-14 md:grid-cols-2 md:[&>*:nth-child(even)]:mt-24">
           <div className="syllabus flex h-fit flex-col rounded-2xl border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8 py-12 shadow backdrop-blur-3xl">
             <div className="syllabus-text text-[#D0DFFF] font-primary mb-4 text-2xl">
-              Getting Started
+              ReactJS Essentials
             </div>
             <div className="syllabus-content text-[#D0DFFF] font-primary text-xl">
               <ul>
@@ -182,50 +168,32 @@ const CourseInfo = () => {
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     01
                   </span>{" "}
-                  Introduction to Next.js
+                  React Fundamentals
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     02
                   </span>{" "}
-                  Setting up your development environment
+                  Understanding React
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     03
                   </span>{" "}
-                  Creating your first Next.js app
+                  Setting up React
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     04
                   </span>{" "}
-                  Routing and navigation in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    05
-                  </span>{" "}
-                  Fetching data in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    06
-                  </span>{" "}
-                  Styling your Next.js app
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    07
-                  </span>{" "}
-                  Deploying your Next.js app
+                  React Dev tools
                 </li>
               </ul>
             </div>
           </div>
           <div className="syllabus flex h-fit flex-col rounded-2xl border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8 py-12 shadow backdrop-blur-3xl">
             <div className="syllabus-text text-[#D0DFFF] font-primary mb-4 text-2xl">
-              Getting Started
+              Advance GraphQl
             </div>
             <div className="syllabus-content text-[#D0DFFF] font-primary text-xl">
               <ul>
@@ -233,50 +201,38 @@ const CourseInfo = () => {
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     01
                   </span>{" "}
-                  Introduction to Next.js
+                  Introduction to GraphQL
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     02
                   </span>{" "}
-                  Setting up your development environment
+                  GraphQL Schema Definition Language (SDL){" "}
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     03
                   </span>{" "}
-                  Creating your first Next.js app
+                  Queries{" "}
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     04
                   </span>{" "}
-                  Routing and navigation in Next.js
+                  Mutations{" "}
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     05
                   </span>{" "}
-                  Fetching data in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    06
-                  </span>{" "}
-                  Styling your Next.js app
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    07
-                  </span>{" "}
-                  Deploying your Next.js app
+                  Client-side GraphQL{" "}
                 </li>
               </ul>
             </div>
           </div>
           <div className="syllabus flex h-fit flex-col rounded-2xl border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8 py-12 shadow backdrop-blur-3xl">
             <div className="syllabus-text text-[#D0DFFF] font-primary mb-4 text-2xl">
-              Getting Started
+              Git and Github
             </div>
             <div className="syllabus-content text-[#D0DFFF] font-primary text-xl">
               <ul>
@@ -284,111 +240,42 @@ const CourseInfo = () => {
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     01
                   </span>{" "}
-                  Introduction to Next.js
+                  What is Git
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     02
                   </span>{" "}
-                  Setting up your development environment
+                  Common Git Commands
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     03
                   </span>{" "}
-                  Creating your first Next.js app
+                  Introduction to GitHub{" "}
                 </li>
                 <li className="my-4">
                   <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
                     04
                   </span>{" "}
-                  Routing and navigation in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    05
-                  </span>{" "}
-                  Fetching data in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    06
-                  </span>{" "}
-                  Styling your Next.js app
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    07
-                  </span>{" "}
-                  Deploying your Next.js app
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="syllabus flex h-fit flex-col rounded-2xl border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8 py-12 shadow backdrop-blur-3xl">
-            <div className="syllabus-text text-[#D0DFFF] font-primary mb-4 text-2xl">
-              Getting Started
-            </div>
-            <div className="syllabus-content text-[#D0DFFF] font-primary text-xl">
-              <ul>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    01
-                  </span>{" "}
-                  Introduction to Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    02
-                  </span>{" "}
-                  Setting up your development environment
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    03
-                  </span>{" "}
-                  Creating your first Next.js app
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    04
-                  </span>{" "}
-                  Routing and navigation in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    05
-                  </span>{" "}
-                  Fetching data in Next.js
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    06
-                  </span>{" "}
-                  Styling your Next.js app
-                </li>
-                <li className="my-4">
-                  <span className="bg-gradient-to-r from-[#ff7170] to-[#ffe57f] inline-block text-transparent bg-clip-text">
-                    07
-                  </span>{" "}
-                  Deploying your Next.js app
+                  Workflows{" "}
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div className="buytext my-[100px] text-[#D0DFFF] font-primary mt-28 text-2xl md:text-6xl sm:text-4xl text-center">
-          500+ students have already enrolled!
+          5000+ students have already enrolled!
         </div>
         <div className="price-wrapper flex justify-center items-center w-full">
           <div className="price-card flex justify-center items-center relative size-full max-w-[428px] flex-col rounded-[20px] border-[#242c38]  lg:self-start border bg-[rgba(22,27,34,0.50)] pb-4 pt-10 text-white shadow-md shadow-blue-500/50 font-primary">
             <div className="course_name rounded-md bg-[#161b22] max-w-fit p-4">
               <span className="text-[#8c7cff] py-[20px] px-[20px] text-center text-xl font-bold">
-                Next.Js Course
+                Get lifetime access
               </span>
             </div>
             <div className="price font-sans my-12">
-              <span className="text-white text-6xl font-bold">$99</span>
+              <span className="text-white text-6xl font-bold">₹99</span>
               <span className="text-white  text-xl font-bold">/month</span>
               <br></br>
               <div className="text-white text-sm font-normal text-right mt-2">
