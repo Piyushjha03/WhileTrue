@@ -1,13 +1,7 @@
 import { getAllCourses } from "@/api";
 import { useEffect, useState } from "react";
 
-import {
-  Search,
-  MonitorPlay,
-  LibraryBigIcon,
-  Plus,
-  ArrowUpRight,
-} from "lucide-react";
+import { Search, ArrowUpRight } from "lucide-react";
 
 import {
   Card,
@@ -20,14 +14,9 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import { Progress } from "@/components/ui/progress";
-
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SignedIn, UserButton } from "@clerk/clerk-react";
-import Example from "@/components/pieChart";
-import LineChart from "@/components/linechart";
-import Aside from "@/components/aside";
-import MobileAside from "@/components/mobileaside";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AddCourse } from "@/components/addCourse";
 import { Link } from "react-router-dom";

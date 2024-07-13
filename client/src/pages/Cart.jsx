@@ -94,17 +94,6 @@ export function HeroScrollDemo() {
   );
 }
 
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  IconArrowWaveRightUp,
-  IconBoxAlignRightFilled,
-  IconBoxAlignTopLeft,
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
-} from "@tabler/icons-react";
-
 import { PinContainer } from "@/components/ui/course-link";
 import { useEffect, useState } from "react";
 import { getAllCourses } from "@/api";
@@ -136,7 +125,7 @@ export function AnimatedPinDemo(props) {
   );
 }
 
-const Landing = () => {
+const Cart = () => {
   const [allCourses, setAllCourses] = useState([]);
   useEffect(() => {
     async function fetchapi() {
@@ -178,4 +167,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Cart;

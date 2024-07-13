@@ -1,37 +1,14 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { getAllCourses, getCourseInfo } from "@/api";
+import { getCourseInfo } from "@/api";
 import { useEffect, useState } from "react";
 
-import {
-  Search,
-  MonitorPlay,
-  LibraryBigIcon,
-  Plus,
-  ArrowUpRight,
-} from "lucide-react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 
-import { Progress } from "@/components/ui/progress";
-
 import { SignedIn, UserButton } from "@clerk/clerk-react";
-import Example from "@/components/pieChart";
-import LineChart from "@/components/linechart";
-import Aside from "@/components/aside";
-import MobileAside from "@/components/mobileaside";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AddCourse } from "@/components/addCourse";
-import { Link, useParams } from "react-router-dom";
-import { TranscriptDialog } from "@/components/transcriptDialog";
+
+import { useParams } from "react-router-dom";
 import { TableDemo } from "@/components/table";
 import { AddChapter } from "@/components/addChapter";
 import { Separator } from "@/components/ui/separator";
