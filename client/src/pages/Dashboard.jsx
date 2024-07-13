@@ -1,4 +1,9 @@
-import { Search, MonitorPlay, LibraryBigIcon } from "lucide-react";
+import {
+  Search,
+  MonitorPlay,
+  LibraryBigIcon,
+  ShoppingCart,
+} from "lucide-react";
 
 import {
   Card,
@@ -54,45 +59,34 @@ export function DashboardUI() {
                 className=" w-32 sm:w-48 absolute right-1 bottom-1 rounded-xl "
               />
               <br />
-              <Link to="/allcourses">
+              <Link to="/cart">
                 <span className="p-3 pointer-events-none z-10 h-full whitespace-pre-wrap bg-gradient-to-br from-[#ff2975] from-35% to-[#00FFF1] bg-clip-text text-center text-5xl sm:text-6xl font-bold leading-none tracking-tighter text-transparent drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
                   Buy Now
                 </span>
               </Link>
             </NeonGradientCard>
           </div>
-          <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Buy</CardDescription>
-                <CardTitle className="text-4xl">12 hours</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-xs text-muted-foreground">
-                  +25% from last week
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Progress value={25} aria-label="25% increase" />
-              </CardFooter>
-            </Card>
+          <main className="z-50 grid grid-cols-1 md:grid-cols-2  flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 ">
             <Card>
               <CardHeader className="pb-2">
                 <CardDescription>Go to</CardDescription>
-                <CardTitle className="text-4xl underline cursor-pointer flex justify-between items-center">
-                  All Courses
-                  <LibraryBigIcon />
-                </CardTitle>
+                <Link to="/allcourses">
+                  <CardTitle className="text-4xl underline cursor-pointer flex justify-between items-center">
+                    All Courses <LibraryBigIcon />
+                  </CardTitle>
+                </Link>
               </CardHeader>
               <CardContent className="pb-2">
                 <div className="text-xs text-muted-foreground ">
-                  Or Continue From Where You Left Off
+                  that you can learn from or
                 </div>
               </CardContent>
               <CardFooter>
-                <MonitorPlay />
-                <div className="text-xs text-muted-foreground underline cursor-pointer ml-2">
-                  <strong>Next.js</strong> .L32
+                <ShoppingCart />
+                <div className="text-xs text-muted-foreground  cursor-pointer ml-2">
+                  <Link to="/cart">
+                    <strong>Buy new course</strong>
+                  </Link>
                 </div>
               </CardFooter>
             </Card>

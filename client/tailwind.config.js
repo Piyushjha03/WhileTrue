@@ -26,16 +26,6 @@ module.exports = {
         cal: ["cal sans", "Matter", "sans-serif"],
         hand: ['"Virgil 3 YOFF"', "cal sans", "Matter", "sans-serif"],
       },
-      animation: {
-        backgroundPositionSpin:
-          "background-position-spin 3000ms infinite alternate",
-      },
-      keyframes: {
-        "background-position-spin": {
-          "0%": { backgroundPosition: "top center" },
-          "100%": { backgroundPosition: "bottom center" },
-        },
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -77,6 +67,10 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "background-position-spin": {
+          "0%": { backgroundPosition: "top center" },
+          "100%": { backgroundPosition: "bottom center" },
+        },
         scroll: {
           to: {
             transform: "translate(calc(-50% - 0.5rem))",
@@ -92,6 +86,8 @@ module.exports = {
         },
       },
       animation: {
+        backgroundPositionSpin:
+          "background-position-spin 3000ms infinite alternate",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
