@@ -111,7 +111,7 @@ const CourseInfo = () => {
       }
     }
     checkOutPayment({
-      amount: 99,
+      amount: 1,
       currency: "INR",
       id: user.id,
       courseID,
