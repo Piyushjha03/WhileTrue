@@ -17,6 +17,8 @@ import { Watch } from "./pages/watch";
 import Playground from "./pages/playground";
 import { Doubt } from "./pages/doubt";
 import Cart from "./pages/Cart";
+import Admin from "./pages/admin";
+import AdminCourse from "./pages/adminCourse";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,20 @@ const router = createBrowserRouter([
     path: "/doubt",
     errorElement: <div>404 Not Found</div>,
     element: <Doubt />,
+  },
+  {
+    path: "/admin",
+    errorElement: <div>404 Not Found</div>,
+    children: [
+      {
+        path: "",
+        element: <Admin />,
+      },
+      {
+        path: "course/:id",
+        element: <AdminCourse />,
+      },
+    ],
   },
 ]);
 

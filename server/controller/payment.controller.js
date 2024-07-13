@@ -43,7 +43,11 @@ export const paymentVerify = async (req, res) => {
       .then((user) => {
         user.courses.push(courseID);
         user.save();
-        return res.redirect(`http://localhost:5173/dashboard`);
+        const urltogo =
+          process.env.ENVIORNMENT === "development"
+            ? process.env.DEV_FRONTEND_URL
+            : process.env.PROD_FRONTEND_URL;
+        return res.redirect(urltogo);
       })
       .catch((err) => {
         return res

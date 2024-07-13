@@ -16,6 +16,11 @@ const chapterSchema = new mongoose.Schema(
     transcript: {
       type: String,
     },
+    videoStatus: {
+      type: String,
+      enum: ["N/A", "queued", "cancelled", "uploaded"],
+      default: "N/A",
+    },
   },
   { timestamps: true }
 );

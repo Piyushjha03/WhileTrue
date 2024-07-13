@@ -1,7 +1,10 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL:
+    import.meta.env.VITE_ENV === "development"
+      ? import.meta.env.VITE_DEV_BACKEND_URL
+      : import.meta.env.VITE_PROD_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,6 +20,11 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
     currency,
   });
 
+  const callbackurl =
+    import.meta.env.VITE_ENV === "development"
+      ? import.meta.env.VITE_DEV_FRONTEND_URL
+      : import.meta.env.VITE_PROD_FRONTEND_URL;
+
   const options = {
     key,
     amount: data.amount,
@@ -25,7 +33,7 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
     description: "Course Purchase",
     image: "../../public/favicon.png",
     order_id: data.id,
-    callback_url: `http://localhost:8000/payment/verification/?id=${id}&courseID=${courseID}`,
+    callback_url: `${callbackurl}/payment/verification/?id=${id}&courseID=${courseID}`,
     prefill: {
       name: "",
       email: "",
@@ -86,5 +94,36 @@ export const askDoubt = async ({ query, videoID }) => {
     query: query,
     videoID: videoID,
   });
+  return data;
+};
+
+export const addCourse = async (course) => {
+  const { data } = await api.post("/course/create", course);
+  return data;
+};
+
+export const addChapter = async (chapter) => {
+  const { data } = await api.post("/chapters/add", chapter);
+  return data;
+};
+
+export const updateChapter = async (chapter) => {
+  const { data } = await api.post("/chapters/update", chapter);
+  return data;
+};
+
+// for multipart form data
+export const apifile = axios.create({
+  baseURL:
+    import.meta.env.VITE_ENV === "development"
+      ? import.meta.env.VITE_DEV_BACKEND_URL
+      : import.meta.env.VITE_PROD_BACKEND_URL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
+export const uploadVideo = async (formData) => {
+  const { data } = await apifile.post("/chapters/video", formData);
   return data;
 };

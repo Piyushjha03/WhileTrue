@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import {
   httpAddChapter,
   httpAddVideo,
+  httpUpdateChapter,
 } from "../controller/chapter.controller.js";
 
 // Resolve __dirname
@@ -34,6 +35,8 @@ const upload = multer({ storage: storage });
 const chapterRouter = express.Router();
 
 chapterRouter.post("/add", httpAddChapter);
+
+chapterRouter.post("/update", httpUpdateChapter);
 
 chapterRouter.post("/video", upload.single("video"), httpAddVideo);
 
