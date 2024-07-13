@@ -13,7 +13,7 @@ const Header = () => {
       <div className="logo">
         <Link to="/">
           <img
-            src="/favicon.png"
+            src="/favicon.webp"
             alt="logo"
             className="h-12 w-12"
             draggable={false}

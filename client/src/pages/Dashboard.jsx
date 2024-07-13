@@ -55,7 +55,7 @@ export function DashboardUI() {
                 30% off on all courses
               </span>
               <img
-                src="/bgimg-bg.png"
+                src="/bgimg-bg.webp"
                 className=" w-32 sm:w-48 absolute right-1 bottom-1 rounded-xl "
               />
               <br />
