@@ -27,22 +27,6 @@ app.use(
     Credentials: true,
   })
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// mongodb connection
-mongoose
-  .connect(uri)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB", err);
-  });
-
-app.get("/test", (req, res) => {
-  res.send({ message: "Hello World" });
-});
 
 app.post(
   "/api/webhooks",
@@ -136,6 +120,22 @@ app.post(
     }
   }
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// mongodb connection
+mongoose
+  .connect(uri)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB", err);
+  });
+
+app.get("/test", (req, res) => {
+  res.send({ message: "Hello World" });
+});
 
 // razorpay router
 app.use("/payment", paymentRouter);
