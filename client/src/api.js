@@ -25,12 +25,6 @@ export const checkOutPayment = async ({ amount, currency, id, courseID }) => {
       ? import.meta.env.VITE_DEV_BACKEND_URL
       : import.meta.env.VITE_PROD_BACKEND_URL;
 
-  console.log("====================================");
-  console.log(
-    `${callbackurl}/payment/verification?id=${id}&courseID=${courseID}`
-  );
-  console.log("====================================");
-
   const options = {
     key,
     amount: data.amount,

@@ -1,15 +1,16 @@
 import VideoPlayer from "@/components/videoPlayer";
-
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Bot, Code, Menu } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
-import { getCourseInfo, getIsWatched } from "@/api";
+import { useEffect, useState, useCallback } from "react";
+import {
+  getCourseInfo,
+  getIsWatched,
+  postIsWatched,
+  updateIsWatched,
+} from "@/api";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   ResizableHandle,
@@ -17,17 +18,15 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import CourseTitle from "@/components/coursetitle";
+import debounce from "lodash/debounce";
 
 export function Watch() {
   const { user } = useUser();
   const courseID = useLocation().pathname.split("/")[2];
   const [courseInfo, setcourseInfo] = useState(undefined);
   const [isWatched, setisWatched] = useState(undefined);
-
   const [videoJsOptions, setVideoJsOptions] = useState(undefined);
-
   const currI = useLocation().pathname.split("/")[3];
-
   const url = useLocation().pathname.slice(0, -2);
 
   useEffect(() => {
@@ -78,17 +77,23 @@ export function Watch() {
     });
   }, [courseInfo, url, currI]);
 
-  console.log("====================================");
-  console.log(isWatched);
-  console.log("====================================");
+  const handleCheck = async (id) => {
+    if (isWatched.includes(id)) {
+      setisWatched(isWatched.filter((item) => item !== id));
+      await updateIsWatched({ clerkID: user.id, courseID, watched: id });
+    } else {
+      setisWatched([...isWatched, id]);
+      await postIsWatched({ clerkID: user.id, courseID, watched: id });
+    }
+  };
 
   return (
     <>
       <div className="dashboard-wrapper w-screen h-screen bg-black">
         <ResizablePanelGroup direction="horizontal">
-          <div className="flex min-h-screen w-full  bg-muted/40">
+          <div className="flex min-h-screen w-full bg-muted/40">
             <ResizablePanel defaultSize={25} className={"hidden sm:block"}>
-              <aside className="overflow-hidden h-full p-2 inset-y-0 left-0 z-10 hidden flex-col border-r bg-background sm:flex ">
+              <aside className="overflow-hidden h-full p-2 inset-y-0 left-0 z-10 hidden flex-col border-r bg-background sm:flex">
                 <div className="flex w-full items-center">
                   <Link
                     to="/dashboard"
@@ -99,7 +104,6 @@ export function Watch() {
                       alt="WhileTrue"
                       className="h-5 w-5 transition-all group-hover:scale-110"
                     />
-                    {/* <Package2 className="h-4 w-4 transition-all group-hover:scale-110" /> */}
                     <span className="sr-only">WhileTrue</span>
                   </Link>
                   <span>WhileTrue</span>
@@ -107,29 +111,22 @@ export function Watch() {
                 <div className="max-h-[80%] overflow-y-scroll">
                   {courseInfo && (
                     <>
-                      {courseInfo && (
-                        <>
-                          {courseInfo.map((course, i) => (
-                            <>
-                              <div
-                                key={i}
-                                className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
-                              >
-                                <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                                  <Link to={`${url}/${i}`}>{course.title}</Link>
-                                </span>
-                                {isWatched && (
-                                  <Checkbox
-                                    checked={isWatched.includes(
-                                      courseInfo[i]._id
-                                    )}
-                                  />
-                                )}
-                              </div>
-                            </>
-                          ))}
-                        </>
-                      )}
+                      {courseInfo.map((course, i) => (
+                        <div
+                          key={i}
+                          className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center"
+                        >
+                          <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <Link to={`${url}/${i}`}>{course.title}</Link>
+                          </span>
+                          {isWatched && (
+                            <Checkbox
+                              onClick={() => handleCheck(courseInfo[i]._id)}
+                              checked={isWatched.includes(courseInfo[i]._id)}
+                            />
+                          )}
+                        </div>
+                      ))}
                     </>
                   )}
                 </div>
@@ -161,7 +158,6 @@ export function Watch() {
                             alt="WhileTrue"
                             className="h-5 w-5 transition-all group-hover:scale-110"
                           />
-                          {/* <Package2 className="h-4 w-4 transition-all group-hover:scale-110" /> */}
                           <span className="sr-only">WhileTrue</span>
                         </Link>
                         <span>WhileTrue</span>
@@ -170,25 +166,24 @@ export function Watch() {
                         {courseInfo && (
                           <>
                             {courseInfo.map((course, i) => (
-                              <>
-                                <div
-                                  key={i}
-                                  className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center "
-                                >
-                                  <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
-                                    <Link to={`${url}/${i}`}>
-                                      {course.title}
-                                    </Link>
-                                  </span>
-                                  {isWatched && (
-                                    <Checkbox
-                                      checked={isWatched.includes(
-                                        courseInfo[i]._id
-                                      )}
-                                    />
-                                  )}
-                                </div>
-                              </>
+                              <div
+                                key={i}
+                                className="bg-muted/80 rounded-sm p-2 my-4 w-full flex justify-between items-center"
+                              >
+                                <span className="block max-w-48 whitespace-nowrap overflow-hidden overflow-ellipsis">
+                                  <Link to={`${url}/${i}`}>{course.title}</Link>
+                                </span>
+                                {isWatched && (
+                                  <Checkbox
+                                    onClick={() =>
+                                      handleCheck(courseInfo[i]._id)
+                                    }
+                                    checked={isWatched.includes(
+                                      courseInfo[i]._id
+                                    )}
+                                  />
+                                )}
+                              </div>
                             ))}
                           </>
                         )}
@@ -197,9 +192,8 @@ export function Watch() {
                   </Sheet>
 
                   {courseInfo && (
-                    <span className=" text-sm sm:text-2xl font-medium">
-                      L{`${+currI + 1}`}
-                      {` - ${courseInfo[currI].title}`}
+                    <span className="text-sm sm:text-2xl font-medium">
+                      L{`${+currI + 1}`} - {courseInfo[currI].title}
                     </span>
                   )}
                   <SignedIn>
@@ -218,7 +212,7 @@ export function Watch() {
                     )}
                   </div>
 
-                  <div className="flex justify-center items-center w-full gap-6 flex-col-reverse  sm:flex-row  ">
+                  <div className="flex justify-center items-center w-full gap-6 flex-col-reverse sm:flex-row">
                     <Link to="/playground">
                       <Button variant="secondary">
                         Try it yourself!
