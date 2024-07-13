@@ -47,7 +47,7 @@ export const paymentVerify = async (req, res) => {
           process.env.ENVIORNMENT === "development"
             ? process.env.DEV_FRONTEND_URL
             : process.env.PROD_FRONTEND_URL;
-        return res.redirect(urltogo);
+        return res.redirect(urltogo + "/dashboard");
       })
       .catch((err) => {
         return res
