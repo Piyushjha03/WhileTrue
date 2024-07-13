@@ -152,7 +152,7 @@ const Landing = () => {
           <Aside />
           <MobileAside />
         </TooltipProvider>
-        <div className="ml-8 landing-content">
+        <div className=" landing-content">
           <div className="w-full mt-0 sm:mt-11 flex justify-center items-center">
             <h1 className="text-4xl font-semibold text-white text-center">
               Get lifetime access to our
