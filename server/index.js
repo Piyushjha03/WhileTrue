@@ -21,7 +21,11 @@ dotenv.config();
 const app = express();
 const uri = process.env.MONGODB_URI;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [process.env.DEV_FRONTEND_URL, process.env.PROD_FRONTEND_URL],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
