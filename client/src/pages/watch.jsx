@@ -42,6 +42,10 @@ export function Watch() {
 
     async function check() {
       const data = await getIsWatched({ courseID, clerkID: user.id });
+      if (data === null) {
+        setisWatched([]);
+        return;
+      }
       setisWatched(data.watched);
     }
     check();

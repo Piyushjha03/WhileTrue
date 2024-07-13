@@ -6,6 +6,7 @@ export async function getWatchedCourse({ clerkID, courseID }) {
       clerkID,
       courseID,
     });
+
     return watchedCourse;
   } catch (error) {
     throw error;
