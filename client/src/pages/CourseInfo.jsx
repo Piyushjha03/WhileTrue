@@ -109,14 +109,13 @@ const CourseInfo = () => {
         });
         return;
       }
-
-      checkOutPayment({
-        amount: 99,
-        currency: "INR",
-        id: user.id,
-        courseID,
-      });
     }
+    checkOutPayment({
+      amount: 99,
+      currency: "INR",
+      id: user.id,
+      courseID,
+    });
   };
 
   return (
