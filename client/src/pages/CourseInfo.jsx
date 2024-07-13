@@ -133,9 +133,10 @@ const CourseInfo = () => {
         </div>{" "}
         <div className="intro-video flex flex-col justify-center items-center border border-gray-800 bg-gray-900/95 bg-opacity-50 px-8  shadow backdrop-blur-3xl  mt-12 p-2 max-w-[711px] mx-auto rounded-lg">
           <iframe
+            loading="lazy"
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/XItIKkbvh-A?si=5x8f9qMPX9OGOAsx"
+            src="https://www.youtube.com/embed/ENrzD9HAZK4?si=KxMeqUidX-ez8FEP"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

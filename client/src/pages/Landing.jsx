@@ -71,18 +71,11 @@ export function HeroScrollDemo() {
           </>
         }
       >
-        {/* <img
-          src={`https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`}
-          alt="hero"
-          height={720}
-          width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
-          draggable={false}
-        /> */}
         <iframe
+          loading="lazy"
           width="100%"
           height="100%"
-          src="https://www.youtube.com/embed/39MArMcq5Oc?si=sNAOPjDZ-54b1ST_"
+          src="https://www.youtube.com/embed/Tn6-PIqc4UM?si=ohG_fN2EwPgWyWR3"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -124,50 +117,104 @@ export function BentoGridDemo() {
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
 );
+
 const items = [
   {
-    title: "Terminal Based E-commerce",
-    description: "Buy Stuff using terminal commands",
-    header: <Skeleton />,
+    title: "ShopEase Terminal",
+    description:
+      "Developed a seamless shopping experience using terminal commands.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/13119184/file/original-349c2f985ce3fc7411114778aa13fa44.png?resize=1200x900"
+        alt="ShopEase Terminal"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Virtual Art Gallery",
+    title: "Artify Gallery",
     description:
-      "Explore and purchase artwork from emerging and established artists.",
-    header: <Skeleton />,
+      "Created a virtual platform for exploring and purchasing artwork from various artists.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/2441799/file/original-e9e071ef0d40aa18bfa9ddf7ab2a2c02.png?resize=1200x900"
+        alt="Artify Gallery"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Music Discovery",
+    title: "TuneExplorer",
     description:
-      "Explore new music from independent artists and bands across different genres.",
-    header: <Skeleton />,
+      "Built an app for discovering new music from independent artists and bands across genres.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/3893923/file/original-7f0e80490df39e23da54c251f4dfea46.png?resize=1200x900"
+        alt="TuneExplorer"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Virtual Campus Tour",
+    title: "CampusNavigator",
     description:
-      "Experience for universities and colleges, allowing prospective students to explore campus facilities, dormitories, classrooms, and recreational areas from the comfort of their own homes.",
-    header: <Skeleton />,
+      "Designed an interactive virtual tour for universities, allowing prospective students to explore campus facilities remotely.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/14143096/file/original-269841bb7faa228dde6f7b405c2c0756.png?resize=2200x1000"
+        alt="CampusNavigator"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Pursuit of Knowledge",
-    description: "Join the quest for understanding and enlightenment.",
-    header: <Skeleton />,
+    title: "KnowledgeQuest",
+    description:
+      "Crafted an engaging platform for users to join the quest for understanding and enlightenment.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/3508703/file/original-840a23029ecd774bcc54dddb8722244d.png?resize=1200x900"
+        alt="KnowledgeQuest"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Joy of Creation",
-    description: "Experience the thrill of bringing ideas to life.",
-    header: <Skeleton />,
+    title: "MindMapp",
+    description:
+      "Developed tools and applications to help users experience the thrill of bringing ideas to life.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/14551843/file/original-ac404d1974063fabcccc3e88300e5788.png?resize=2900x1436"
+        alt="MindMapp"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Spirit of Adventure",
-    description: "Embark on exciting journeys and thrilling discoveries.",
-    header: <Skeleton />,
+    title: "AdventureSpire",
+    description:
+      "Created applications that allow users to embark on exciting journeys and thrilling discoveries.",
+    header: (
+      <img
+        loading="lazy"
+        src="https://cdn.dribbble.com/userupload/12922948/file/original-8c10bc335a811ce28100c75eb07f054f.jpg?resize=2000x800"
+        alt="KnowledgeQuest"
+        className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
+      />
+    ),
     icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
   },
 ];
@@ -305,6 +352,7 @@ export function AnimatedPinDemo(props) {
             <span className="text-slate-500 ">₹{props.course.price}</span>
           </div>
           <img
+            loading="lazy"
             src={props.course.coverImage}
             alt={props.course.title}
             className="flex flex-1 w-full rounded-lg mt-4 object-cover "
