@@ -23,5 +23,9 @@
     "s3-folder-upload": "^2.3.5",
     "svix": "^1.24.0",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17"
   }
 }
