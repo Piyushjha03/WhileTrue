@@ -34,10 +34,11 @@ export function AddCourse() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (import.meta.env.VITE_ENV !== "development") {
+      toast.error("This feature is only for admin");
+      return;
+    }
     setIsLoading(true);
-    console.log("====================================");
-    console.log(formData);
-    console.log("====================================");
     async function fetchData() {
       const data = await addCourse(formData);
     }

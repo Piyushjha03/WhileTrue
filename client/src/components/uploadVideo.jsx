@@ -71,6 +71,10 @@ export function UploadVideo(props) {
       toast.error("Please select a file");
       return;
     }
+    if (import.meta.env.VITE_ENV !== "development") {
+      toast.error("This feature is only for admin");
+      return;
+    }
     const formdata = new FormData();
     formdata.append("video", files[0]);
     formdata.append("chapterID", props.chapterID);

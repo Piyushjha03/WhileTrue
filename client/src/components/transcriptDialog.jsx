@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 import { updateChapter } from "@/api";
+import { toast } from "react-toastify";
 
 export function TranscriptDialog(props) {
   const [transcript, setTranscript] = useState(props.transcript);
@@ -22,9 +23,10 @@ export function TranscriptDialog(props) {
       _id: props._id,
       transcript: transcript,
     };
-    console.log("====================================");
-    console.log("Update Transcript", editedTranscript);
-    console.log("====================================");
+    if (import.meta.env.VITE_ENV !== "development") {
+      toast.error("This feature is only for admin");
+      return;
+    }
 
     await updateChapter(editedTranscript);
     setIsOpen(false);
