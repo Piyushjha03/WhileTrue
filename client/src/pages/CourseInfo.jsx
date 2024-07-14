@@ -1,6 +1,7 @@
 import { checkOutPayment, getuserinfo } from "@/api";
 import { InfiniteMovingCards } from "@/components/ui/moving-cards";
 import { useUser } from "@clerk/clerk-react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -65,6 +66,7 @@ const testimonials = [
 
 const CourseInfo = () => {
   const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   const courseID = useLocation().pathname.split("/").pop();
   const notify = () =>
@@ -86,6 +88,7 @@ const CourseInfo = () => {
   };
 
   const handlePayment = async () => {
+    setIsLoading(true);
     const data = await getuserinfo(user.id);
 
     for (let i = 0; i < data.courses.length; i++) {
@@ -101,6 +104,7 @@ const CourseInfo = () => {
           theme: "dark",
           transition: Bounce,
         });
+        setIsLoading(false);
         return;
       }
     }
@@ -110,6 +114,7 @@ const CourseInfo = () => {
       id: user.id,
       courseID,
     });
+    setIsLoading(false);
   };
 
   return (
@@ -289,7 +294,7 @@ const CourseInfo = () => {
                 user ? handlePayment() : handleNotLoggedIn();
               }}
             >
-              Buy Now
+              {isLoading ? "Processing..." : "Buy Now"}
             </div>
           </div>
         </div>
