@@ -108,7 +108,7 @@ const CourseInfo = () => {
         return;
       }
     }
-    checkOutPayment({
+    await checkOutPayment({
       amount: 1,
       currency: "INR",
       id: user.id,
